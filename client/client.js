@@ -13,7 +13,7 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
   vm.getVehicleLocations = function(){
     vm.removeMarkers();
     vm.noBusses = false;
-    $http.get('http://svc.metrotransit.org/NexTrip/VehicleLocations/' + vm.routeNumber).then(function(response){
+    $http.get('https://svc.metrotransit.org/NexTrip/VehicleLocations/' + vm.routeNumber).then(function(response){
       vm.tempObject = {};
       vm.tempMarker = {};
       vm.responseList = [];
@@ -28,7 +28,7 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
           vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.trainIcon });
         } else {
           vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.busIcon });
-        }          
+        }
         vm.markerList.push(vm.tempMarker);
       });
       if (vm.markerList.length == 0){
