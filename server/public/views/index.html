@@ -19,8 +19,8 @@
   </head>
   <body ng-controller="LocationController as vm">
     <div class="row header">
-      <h1>FindABus</h1>
-      <span id="noBusFound" ng-show="vm.noBusses">No Buses Found :(</span>
+      <h1 id="headerText">FindABus</h1>
+      <div id="noBusFound" >No Buses Found :(</div>
     </div>
 
     <div class="row">
@@ -29,7 +29,7 @@
         <div class="selectContainer col-md-6 col-lg-6">
           <label class="sr-only">Select Bus Route</label>
           <select id="routeSelect" class="form-control input-lg col-md-6" ng-model="vm.routeNumber">
-            <option selected value="0">Select Route</option>
+            <option selected value="">Select Route</option>
             <option value="901">METRO Blue Line</option>
             <option value="902">METRO Green Line</option>
             <option value="903">METRO Red Line</option>

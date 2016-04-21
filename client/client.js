@@ -38,7 +38,6 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
       } else {
         vm.noBusses = false;
       }
-
       console.log('markerlist', vm.markerList);
       vm.updateMap();
     })

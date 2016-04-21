@@ -16,12 +16,23 @@ form{
   color: white;
 }
 
+.row{
+  margin: 10px -15px 0 -15px;
+}
+
 #map{
   height: 700px;
 }
 
 #noBusFound{
   color: red;
+  background-color: white;
+  display: inline;
+  font-size: 30px;
+  padding: 10px;
+  margin: 10px;
+  border: solid 2px #5AB995;
+  border-radius: 15px;
 }
 
 #routeSelect{
@@ -31,4 +42,9 @@ color: white;
 
 #getBusButton{
   font-size: 25px;
+}
+
+#headerText{
+  display: inline;
+  margin: 0 30% 0 0;
 }
