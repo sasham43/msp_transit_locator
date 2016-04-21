@@ -26,7 +26,7 @@ form{
 
 #noBusFound{
   color: red;
-  background-color: white;
+  background-color: #5AB995;
   display: inline;
   font-size: 30px;
   padding: 10px;
