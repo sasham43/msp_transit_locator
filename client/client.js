@@ -66,6 +66,7 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
 
     vm.routeOptions = {
       availableOptions: [
+      {id: 0, name: "Select a route!"},
       {id:901, name:"METRO Blue Line"},
       {id:902, name:"METRO Green Line"},
       {id:903, name:"METRO Red Line"},

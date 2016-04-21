@@ -28,7 +28,7 @@
         <button class="col-md-6 input-lg btn btn-warning" id="getBusButton" ng-click="vm.getVehicleLocations()">Locate Buses</button>
         <div class="selectContainer col-md-6 col-lg-6">
           <label class="sr-only">Select Bus Route</label>
-          <select id="routeSelect" class="form-control input-lg col-md-6" ng-model="vm.routeOptions.selectedOption" ng-options="option.name for option in vm.routeOptions.availableOptions track by option.id">
+          <select id="routeSelect" class="form-control input-lg col-md-6" ng-init="vm.routeOptions.selectedOption" ng-model="vm.routeOptions.selectedOption" ng-options="option.name for option in vm.routeOptions.availableOptions track by option.id">
 
           </select>
         </div>
