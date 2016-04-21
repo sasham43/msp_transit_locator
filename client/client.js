@@ -1,7 +1,9 @@
 var app = angular.module('transitApp', ['ngMap']);
 
 app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
+  // used for 'controller as' syntax
   var vm = this;
+  // initialize variables
   vm.responseList = [];
   vm.markerList = [];
   vm.routeNumber = 0;
@@ -13,7 +15,7 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
   vm.getVehicleLocations = function(){
     vm.removeMarkers();
     vm.noBusses = false;
-    $http.get('https://svc.metrotransit.org/NexTrip/VehicleLocations/' + vm.routeNumber).then(function(response){
+    $http.get('http://svc.metrotransit.org/NexTrip/VehicleLocations/' + vm.routeNumber).then(function(response){
       vm.tempObject = {};
       vm.tempMarker = {};
       vm.responseList = [];
@@ -38,26 +40,23 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
       }
 
       console.log('markerlist', vm.markerList);
-
-      // add links below map
-      // vm.responseList.map(function(object){
-      //   // console.log(object);
-      //   object.vehicleLocationURL = "https://www.google.com/maps/place/" + object.VehicleLatitude + "+" + object.VehicleLongitude;
-      // });
       vm.updateMap();
     })
   };
 
     vm.updateMap = function(){
-      NgMap.getMap(0).then(function(map) {
+      NgMap.getMap({id: 'map'}).then(function(map) {
         vm.markerList.map(function(marker){
           marker.setMap(map);
         });
       });
+      console.log('get map', NgMap.getMap({id: 'map'}).then(function(map){
+        console.log('this map', map);
+      }));
     };
 
     vm.removeMarkers = function(){
-      NgMap.getMap(0).then(function(map) {
+      NgMap.getMap({id: 'map'}).then(function(map) {
         vm.markerList.map(function(marker){
           marker.setMap(null);
         });

@@ -1,0 +1,34 @@
+body{
+  background-color: #DE5F26;
+}
+
+form{
+  height: 30%;
+  padding: 0;
+}
+
+.selectContainer{
+  margin: 0;
+}
+
+.header{
+  padding-left: 3em;
+  color: white;
+}
+
+#map{
+  height: 700px;
+}
+
+#noBusFound{
+  color: red;
+}
+
+#routeSelect{
+background-color: #DE5F26;
+color: white;
+}
+
+#getBusButton{
+  font-size: 25px;
+}
