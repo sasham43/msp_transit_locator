@@ -2,7 +2,7 @@
 <html ng-app="transitApp">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Minneapolis Transit</title>
 
     <!-- Libraries -->
@@ -25,11 +25,11 @@
     </div>
 
     <div class="row">
-      <form class="col-md-12 col-log-12">
-        <button class="col-xs-12 col-sm-12 col-md-6 input-lg btn btn-warning" id="getBusButton" ng-click="vm.getVehicleLocations()">Locate Buses</button>
+      <form class="col-md-12 col-log-12" ng-submit="vm.getVehicleLocations()">
+        <input type="submit" value="Locate Buses" class="col-xs-12 col-sm-12 col-md-6 input-lg btn btn-warning" id="getBusButton" />
         <div class="selectContainer col-sm-12 col-md-6 col-lg-6">
           <label class="sr-only">Select Bus Route</label>
-          <select id="routeSelect" class="form-control input-lg col-md-6" ng-init="vm.routeOptions.selectedOption" ng-model="vm.routeOptions.selectedOption" ng-options="option.name for option in vm.routeOptions.availableOptions track by option.id">
+          <select id="routeSelect" class="form-control input-lg col-md-6 col-xs-12 col-sm-12" ng-init="vm.routeOptions.selectedOption" ng-model="vm.routeOptions.selectedOption" ng-options="option.name for option in vm.routeOptions.availableOptions track by option.id">
 
           </select>
         </div>

@@ -9,6 +9,7 @@ form{
 
 .selectContainer{
   margin: 0;
+  padding: 0;
 }
 
 .header{
@@ -20,8 +21,16 @@ form{
   margin: 10px -15px 0 -15px;
 }
 
+@media screen and (min-width: 48em){
+    .header{
+        text-align: center;
+    }
+}
+
 #map{
   height: 700px;
+  margin: 0;
+  padding: 0;
 }
 
 #noBusFound{
@@ -36,8 +45,10 @@ form{
 }
 
 #routeSelect{
-background-color: #DE5F26;
-color: white;
+  background-color: #DE5F26;
+  color: white;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 #getBusButton{
