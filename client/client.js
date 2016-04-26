@@ -10,7 +10,9 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
   vm.mapsAPIKey = 'AIzaSyB4sLHNoVaZXg41IyAwcH0zdWrv0OgH9ZM';
   vm.noBuses = false;
   vm.busIcon = 'assets/images/tiny_icon_bus.png';
+  vm.busIcon2 = 'assets/images/tiny_icon_bus2.png';
   vm.trainIcon = 'assets/images/tiny_train_icon.png';
+  vm.trainIcon2 = 'assets/images/tiny_train_icon2.png';
 
   vm.testDate = "/Date(1461336899000-0500)/";
   vm.regExp = /\d\d\d\d\d\d\d\d\d\d\d\d\d\W\d\d\d\d/;
@@ -42,9 +44,21 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
         // check if vehicle route is a train based on route number
         vm.isTrain = vm.routeOptions.selectedOption.id == 901 || vm.routeOptions.selectedOption.id == 902 || vm.routeOptions.selectedOption.id == 903 || vm.routeOptions.selectedOption.id == 888;
         if (vm.isTrain){
-          vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.trainIcon }); // create marker with train icon
+          // check train direction
+          if (object.Direction === 1 || object.Direction === 2){
+            vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.trainIcon }); // create marker with train icon
+          } else {
+            vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.trainIcon2 }); // create marker with inverted train icon
+          }
+
         } else {
-          vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.busIcon }); // create marker with bus icon
+          // check bus direction
+          if (object.Direction === 1 || object.Direction === 2){
+            vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.busIcon }); // create marker with bus icon
+          } else {
+            vm.tempMarker = new google.maps.Marker({position: vm.tempObject, icon: vm.busIcon2 }); // create marker with inverted bus icon
+          }
+
         }
         // add parsed date to marker object
         vm.tempMarker.locationTime = vm.actualDate;
@@ -60,12 +74,16 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
 
       // run update map function to add markers and info windows
       vm.updateMap();
-    })
+    });
   };
 
   vm.updateMap = function(){
     // get map based on id and run operations
     NgMap.getMap({id: 'map'}).then(function(map) {
+      // center map on first marker & zoom in
+      map.setCenter(vm.markerList[0].position);
+      map.setZoom(12);
+
       // loop through marker list and add them to the map along with an associated info window
       vm.markerList.map(function(marker){
         // add marker to map
@@ -91,6 +109,26 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
       });
     });
   };
+
+  //getLocation();
+
+  // find users' position
+  vm.getLocation = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  };
+  function showPosition(position) {
+      console.log("Latitude: " + position.coords.latitude +
+      "<br>Longitude: " + position.coords.longitude);
+      vm.userPosition = {lat: position.coords.latitude, lng: position.coords.longitude};
+      NgMap.getMap({id:'map'}).then(function(map){
+        var userMarker = new google.maps.Marker({position: vm.userPosition});
+        userMarker.setMap(map);
+      });
+  }
 
   // list out route options for dropdown.  Also choose default selected option
   vm.routeOptions = {

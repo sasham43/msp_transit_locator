@@ -21,6 +21,14 @@ form{
   margin: 10px -15px 0 -15px;
 }
 
+.locationButton{
+  font-size: 25px;
+}
+
+.formContainer{
+  margin-top: 0;
+}
+
 @media screen and (min-width: 48em){
     .header{
         text-align: center;
@@ -34,13 +42,13 @@ form{
 }
 
 #noBusFound{
-  color: red;
-  background-color: #5AB995;
+  color: white;
+  /*background-color: #5AB995;*/
   display: inline;
   font-size: 30px;
   padding: 10px;
   margin: 10px;
-  border: solid 2px #5AB995;
+  /*border: solid 2px #5AB995;*/
   border-radius: 15px;
 }
 
