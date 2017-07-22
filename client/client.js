@@ -73,6 +73,8 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
         }
         // add parsed date to marker object
         vm.tempMarker.locationTime = vm.actualDate;
+        // add direction to marker
+        vm.tempMarker.direction = object.Direction;
         // add marker to new list so we can loop through it later
         if(loc){
           // var user_location = new google.maps.LatLng(loc.lat, loc.lng);
@@ -104,9 +106,9 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
 
   // init map listeners
   NgMap.getMap({id: 'map'}).then(function(map){
-    console.log('we got a map')
+    // console.log('we got a map')
     map.addListener('click', function(evt){
-      console.log('we clicked!', evt.latLng.lat());
+      // console.log('we clicked!', evt.latLng.lat());
       var location = {
         lat: evt.latLng.lat(),
         lng: evt.latLng.lng()
@@ -128,9 +130,22 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
         // add marker to map
         marker.setMap(map);
 
+        var direction;
+        if(marker.direction == 1){
+          direction = 'South';
+        } else if (marker.direction == 2){
+          direction = 'East';
+        } else if (marker.direction == 3){
+          direction = 'West';
+        } else if (marker.direction == 4){
+          direction = 'North';
+        } else {
+          console.log('no direction', marker);
+        }
+
         // initialize info window, create time string for display
         var infowindow = new google.maps.InfoWindow({
-          content: 'Location reported at: ' + marker.locationTime.toTimeString()
+          content: 'Direction: ' + direction + '\nLocation reported at: ' + marker.locationTime.toTimeString()
         });
         // add info window to map
         marker.addListener('click', function() {
