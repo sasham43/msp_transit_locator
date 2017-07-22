@@ -18,7 +18,7 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
   vm.regExp = /\d\d\d\d\d\d\d\d\d\d\d\d\d\W\d\d\d\d/;
   //vm.actualDate = new Date(parseInt(vm.testDate.match(vm.regExp)));
 
-  vm.getVehicleLocations = function(){
+  vm.getVehicleLocations = function(loc){
     vm.removeMarkers(); // remove any markers that may be on the map before adding more
     vm.noBuses = false; // hide no buses warning
     $http.get('http://svc.metrotransit.org/NexTrip/VehicleLocations/' + vm.routeOptions.selectedOption.id).then(function(response){
@@ -27,6 +27,17 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
       vm.tempMarker = {};
       vm.responseList = [];
       vm.markerList = [];
+
+      if(loc){
+        var user_location = new google.maps.LatLng(loc.lat, loc.lng);
+
+        var user_circle = new google.maps.Circle({
+          center: user_location,
+          radius: 1609
+        });
+
+        var circle_bounds = user_circle.getBounds();
+      }
 
       // pass response from server into list variable
       vm.responseList = response.data;
@@ -63,7 +74,21 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
         // add parsed date to marker object
         vm.tempMarker.locationTime = vm.actualDate;
         // add marker to new list so we can loop through it later
-        vm.markerList.push(vm.tempMarker);
+        if(loc){
+          // var user_location = new google.maps.LatLng(loc.lat, loc.lng);
+          //
+          // var user_circle = new google.maps.Circle({
+          //   center: user_location,
+          //   radius: 1609
+          // });
+          //
+          // var circle_bounds = user_circle.getBounds();
+          if(circle_bounds.contains(vm.tempMarker.getPosition())){
+            vm.markerList.push(vm.tempMarker);
+          }
+        } else {
+          vm.markerList.push(vm.tempMarker);
+        }
       });
       // check if list is empty, if so show warning element
       if (vm.markerList.length == 0){
@@ -76,6 +101,20 @@ app.controller('LocationController', ['$http', 'NgMap', function($http, NgMap){
       vm.updateMap();
     });
   };
+
+  // init map listeners
+  NgMap.getMap({id: 'map'}).then(function(map){
+    console.log('we got a map')
+    map.addListener('click', function(evt){
+      console.log('we clicked!', evt.latLng.lat());
+      var location = {
+        lat: evt.latLng.lat(),
+        lng: evt.latLng.lng()
+      };
+
+      vm.getVehicleLocations(location)
+    });
+  });
 
   vm.updateMap = function(){
     // get map based on id and run operations

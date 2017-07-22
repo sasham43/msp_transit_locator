@@ -28,6 +28,10 @@
       <button class="col-md-6 col-sm-12 col-xs-12 btn btn-info locationButton" ng-click="vm.getLocation()">Where Am I?</button>
     </div>
 
+    <div class="row">
+      <button class="col-md-6 col-sm-12 btn btn-success locationButton" ng-click="vm.nearMe()">Near Me</button>
+    </div>
+
     <div class="row formContainer">
       <form class="col-md-12 col-log-12" ng-submit="vm.getVehicleLocations()">
         <input type="submit" value="Locate Buses" class="col-xs-12 col-sm-12 col-md-6 input-lg btn btn-warning" id="getBusButton" />
